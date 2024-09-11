@@ -33,15 +33,15 @@ export class CategoryComponent implements OnInit {
   dataSource = new MatTableDataSource<CategoryElement>();
 
   getCategories(): void {
-    this.categoryService.getCategories().subscribe(
-      (data: any) => {
+    this.categoryService.getCategories().subscribe({
+      next: (data) =>{
         this.processCategoriesResponse(data);
         console.log('rpta categorias', data);
       },
-      (error: any) => {
+      error: (error) =>{
         console.log('Error', error);
       }
-    );
+    });
   }
 
   processCategoriesResponse(resp: any) {
@@ -84,10 +84,7 @@ export class CategoryComponent implements OnInit {
         this.openSnackBar('Categoría Actualizada', 'Exitosa');
         this.getCategories();
       } else if (result == 2) {
-        this.openSnackBar(
-          'Se produjo un error al actualizar categoría',
-          'Error'
-        );
+        this.openSnackBar('Se produjo un error al actualizar categoría','Error');
       }
     });
   }

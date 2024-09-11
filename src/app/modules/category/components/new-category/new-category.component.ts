@@ -36,24 +36,24 @@ export class NewCategoryComponent implements OnInit {
     };
 
     if (this.data != null) {
-      this.categoryService.updateCategory(this.data.id, data).subscribe(
-        (data) => {
+      this.categoryService.updateCategory(this.data.id, data).subscribe({
+        next: (data) => {
           this.dialogRef.close(1);
         },
-        (error: any) => {
+        error: (error) => {
           this.dialogRef.close(2);
         }
-      );
+      });
     } else {
-      this.categoryService.saveCategories(data).subscribe(
-        (data) => {
+      this.categoryService.saveCategories(data).subscribe({
+        next: (data) => {
           console.log(data);
           this.dialogRef.close(1);
         },
-        (error: any) => {
+        error: (error) => {
           this.dialogRef.close(2);
         }
-      );
+      });
     }
   }
 

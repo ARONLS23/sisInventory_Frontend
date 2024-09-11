@@ -23,10 +23,13 @@ export class ConfirmComponent implements OnInit {
 
   delete(){
     if (this.data != null) {
-      this.categoriaService.deleteCategory(this.data.id).subscribe( data =>{
-        this.dialogRef.close(1);
-      }, (error: any) => {
-        this.dialogRef.close(2);
+      this.categoriaService.deleteCategory(this.data.id).subscribe({
+        next: (data) => {
+          this.dialogRef.close(1);
+        },
+        error: (error) => {
+          this.dialogRef.close(2);
+        }
       })
     }else{
       this.dialogRef.close(2);
