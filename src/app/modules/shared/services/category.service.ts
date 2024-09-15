@@ -33,4 +33,9 @@ export class CategoryService {
     const endpoint = `${base_url}/categories/${id}`;
     return this.http.get(endpoint);
   }
+
+  getCategoryByName(name:string){
+    const endpoint = `${base_url}/categories/filter/${name}`;
+    return this.http.get(endpoint);
+  }
 }

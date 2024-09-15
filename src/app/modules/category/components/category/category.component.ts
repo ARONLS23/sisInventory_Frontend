@@ -108,7 +108,7 @@ export class CategoryComponent implements OnInit {
     if (termino.length === 0) {
       return this.getCategories();
     }
-    this.categoryService.getCategoryById(termino).subscribe( resp =>{
+    this.categoryService.getCategoryByName(termino).subscribe( resp =>{
       this.processCategoriesResponse(resp);
     })
   }
