@@ -25,12 +25,12 @@ export class CategoryComponent implements OnInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
+  displayedColumns: string[] = ['id', 'name', 'description', 'actions'];
+  dataSource = new MatTableDataSource<CategoryElement>();
+
   ngOnInit(): void {
     this.getCategories();
   }
-
-  displayedColumns: string[] = ['id', 'name', 'description', 'actions'];
-  dataSource = new MatTableDataSource<CategoryElement>();
 
   getCategories(): void {
     this.categoryService.getCategories().subscribe({
