@@ -44,7 +44,7 @@ export class ProductComponent implements OnInit {
       },
       error: (error) => {
         console.log('Error', error);
-      },
+      }
     });
   }
 
@@ -108,6 +108,21 @@ export class ProductComponent implements OnInit {
         this.openSnackBar('Se produjo un error al eliminar producto', 'Error');
       }
     });
+  }
+
+  buscar(nombre: string){
+    if (nombre.length === 0) {
+      return this.getProducts();
+    }
+    this.productService.getProductByName(nombre).subscribe({
+      next: (data) => {
+        this.processProductsResponse(data);
+        console.log('rpta products', data);
+      },
+      error: (error) => {
+        console.log('Error', error);
+      }
+    })
   }
 
   openSnackBar(message: string, action: string): MatSnackBarRef<SimpleSnackBar> {

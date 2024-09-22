@@ -108,8 +108,14 @@ export class CategoryComponent implements OnInit {
     if (termino.length === 0) {
       return this.getCategories();
     }
-    this.categoryService.getCategoryByName(termino).subscribe( resp =>{
-      this.processCategoriesResponse(resp);
+    this.categoryService.getCategoryByName(termino).subscribe({
+      next: (data) =>{
+        this.processCategoriesResponse(data);
+        console.log('rpta categorias', data);
+      },
+      error: (error) =>{
+        console.log('Error', error);
+      }
     })
   }
 

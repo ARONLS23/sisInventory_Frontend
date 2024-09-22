@@ -29,4 +29,9 @@ export class ProductService {
     return this.http.delete(endpoint);
   }
 
+  getProductByName(nombre: string){
+    const endpoint = `${base_url}/products/filter/${nombre}`;
+    return this.http.get(endpoint);
+  }
+
 }
