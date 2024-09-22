@@ -53,7 +53,7 @@ export class ProductComponent implements OnInit {
       let listProduct = resp.productResponse.products;
 
       listProduct.forEach((element: ProductElement) => {
-        element.category = element.category.name;
+        //element.category = element.category.name;
         element.picture = 'data:image/jpeg;base64,' + element.picture;
         dataProduct.push(element);
       });
@@ -74,6 +74,22 @@ export class ProductComponent implements OnInit {
         this.getProducts();
       } else if (result == 2) {
         this.openSnackBar('Se produjo un error al guardar producto', 'Error');
+      }
+    });
+  }
+
+  edit(id: number, name: string, price: number, quantity: number, category: any){
+    const dialogRef = this.dialog.open(NewProductComponent, {
+      width: '450px',
+      data: {id: id, name: name, price: price, quantity: quantity, category: category}
+    });
+    console.log(dialogRef.componentInstance.data);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == 1) {
+        this.openSnackBar('Producto Actualizado', 'Exitoso');
+        this.getProducts();
+      } else if (result == 2) {
+        this.openSnackBar('Se produjo un error al actualizar producto', 'Error');
       }
     });
   }
