@@ -11,6 +11,7 @@ import {
 } from '@angular/material/snack-bar';
 import { ConfirmComponent } from 'src/app/modules/shared/components/confirm/confirm.component';
 import { MatPaginator } from '@angular/material/paginator';
+import { UtilService } from 'src/app/modules/shared/services/util.service';
 
 @Component({
   selector: 'app-category',
@@ -21,6 +22,7 @@ export class CategoryComponent implements OnInit {
   private categoryService = inject(CategoryService);
   public dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
+  private util = inject(UtilService);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -28,8 +30,11 @@ export class CategoryComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'description', 'actions'];
   dataSource = new MatTableDataSource<CategoryElement>();
 
+  isAdmin: any;
+
   ngOnInit(): void {
     this.getCategories();
+    this.isAdmin = this.util.isAdmin();
   }
 
   getCategories(): void {

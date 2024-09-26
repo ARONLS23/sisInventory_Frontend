@@ -51,7 +51,7 @@
           <button mat-icon-button color="accent" (click)="edit(element.id, element.name, element.description)" onfocus="this.blur()">
             <mat-icon aria-label="Edit">edit</mat-icon>
           </button>
-          <button mat-icon-button color="accent" (click)="delete(element.id)" onfocus="this.blur()">
+          <button *ngIf="isAdmin" mat-icon-button color="accent" (click)="delete(element.id)" onfocus="this.blur()">
             <mat-icon aria-label="Delete">delete</mat-icon>
           </button>
         </td>
