@@ -15,6 +15,9 @@
           "options": {
             "outputPath": "dist/front-inventory",
             "index": "src/index.html",
+            "allowedCommonJsDependencies": [
+              "js-sha256"
+            ],
             "main": "src/main.ts",
             "polyfills": [
               "zone.js"
