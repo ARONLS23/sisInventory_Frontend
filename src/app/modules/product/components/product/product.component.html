@@ -17,7 +17,10 @@
     <div class="right">
       <ul>
         <li>
-          <button mat-raised-button color="primary" (click)="openProductDialog()" onfocus="this.blur()">Agregar Producto</button>
+          <button mat-raised-button color="primary" (click)="openProductDialog()" onfocus="this.blur()">AgregarProducto</button>
+        </li>
+        <li>
+          <button mat-button color="primary" (click)="exportExcel()" onfocus="this.blur()">Exportar Excel</button>
         </li>
       </ul>
     </div>
@@ -63,7 +66,9 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let element; let i=index;">
-          <button mat-icon-button color="accent" (click)="edit(element.id, element.name, element.price, element.quantity, element.category)" onfocus="this.blur()">
+          <button mat-icon-button color="accent"
+            (click)="edit(element.id, element.name, element.price, element.quantity, element.category)"
+            onfocus="this.blur()">
             <mat-icon aria-label="Edit">edit</mat-icon>
           </button>
           <button *ngIf="isAdmin" mat-icon-button color="accent" (click)="delete(element.id)" onfocus="this.blur()">
