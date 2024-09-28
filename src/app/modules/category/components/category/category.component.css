@@ -3,8 +3,13 @@
   margin-top: 20px;
 }
 
+ul {
+  display: flex;
+}
+
 ul li {
   list-style: none;
+  margin-right: 10px;
 }
 
 .right {
@@ -16,6 +21,6 @@ mat-form-field {
 }
 
 .mat-cell:nth-child(1),
-.mat-header-cell:nth-child(1){
+.mat-header-cell:nth-child(1) {
   flex: 0 0 6%;
 }

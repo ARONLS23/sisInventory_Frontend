@@ -39,13 +39,13 @@ export class CategoryComponent implements OnInit {
 
   getCategories(): void {
     this.categoryService.getCategories().subscribe({
-      next: (data) =>{
+      next: (data) => {
         this.processCategoriesResponse(data);
         console.log('rpta categorias', data);
       },
-      error: (error) =>{
+      error: (error) => {
         console.log('Error', error);
-      }
+      },
     });
   }
 
@@ -89,14 +89,17 @@ export class CategoryComponent implements OnInit {
         this.openSnackBar('Categoría Actualizada', 'Exitosa');
         this.getCategories();
       } else if (result == 2) {
-        this.openSnackBar('Se produjo un error al actualizar categoría','Error');
+        this.openSnackBar(
+          'Se produjo un error al actualizar categoría',
+          'Error'
+        );
       }
     });
   }
 
   delete(id: any) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
-      data: { id: id, module: "category" },
+      data: { id: id, module: 'category' },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -109,25 +112,48 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  buscar(termino: string){
+  buscar(termino: string) {
     if (termino.length === 0) {
       return this.getCategories();
     }
     this.categoryService.getCategoryByName(termino).subscribe({
-      next: (data) =>{
+      next: (data) => {
         this.processCategoriesResponse(data);
         console.log('rpta categorias', data);
       },
-      error: (error) =>{
+      error: (error) => {
         console.log('Error', error);
-      }
-    })
+      },
+    });
   }
 
-  openSnackBar(message: string, action: string): MatSnackBarRef<SimpleSnackBar> {
+  openSnackBar(
+    message: string,
+    action: string
+  ): MatSnackBarRef<SimpleSnackBar> {
     return this.snackBar.open(message, action, {
       duration: 2000,
     });
   }
 
+  exportExcel() {
+    this.categoryService.exportCategories().subscribe({
+      next: (data) => {
+        let file = new Blob([data], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        });
+        let fileUrl = URL.createObjectURL(file);
+        var anchor = document.createElement('a');
+        anchor.download = 'categories.xlsx';
+        anchor.href = fileUrl;
+        anchor.click();
+
+        this.openSnackBar('Archivo exportado correctamente', 'Exitoso');
+      },
+      error: (error) => {
+        console.log('Error', error);
+        this.openSnackBar('No se pudo exportar el archivo', 'Error');
+      },
+    });
+  }
 }

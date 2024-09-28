@@ -14,28 +14,35 @@ export class CategoryService {
     return this.http.get(endpoint);
   }
 
-  saveCategories(body: any){
+  saveCategories(body: any) {
     const endpoint = `${base_url}/categories`;
     return this.http.post(endpoint, body);
   }
 
-  updateCategory(id: any, body: any){
+  updateCategory(id: any, body: any) {
     const endpoint = `${base_url}/categories/${id}`;
     return this.http.put(endpoint, body);
   }
 
-  deleteCategory(id: any){
+  deleteCategory(id: any) {
     const endpoint = `${base_url}/categories/${id}`;
     return this.http.delete(endpoint);
   }
 
-  getCategoryById(id:any){
+  getCategoryById(id: any) {
     const endpoint = `${base_url}/categories/${id}`;
     return this.http.get(endpoint);
   }
 
-  getCategoryByName(name:string){
+  getCategoryByName(name: string) {
     const endpoint = `${base_url}/categories/filter/${name}`;
     return this.http.get(endpoint);
+  }
+
+  exportCategories() {
+    const endpoint = `${base_url}/categories/export/excel`;
+    return this.http.get(endpoint, {
+      responseType: 'blob',
+    });
   }
 }
