@@ -41,4 +41,9 @@ export class ProductService {
     });
   }
 
+  getCountProductsByCategoria() {
+    const endpoint = `${base_url}/products/count`;
+    return this.http.get(endpoint);
+  }
+
 }

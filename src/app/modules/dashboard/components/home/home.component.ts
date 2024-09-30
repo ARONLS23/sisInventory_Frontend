@@ -6,10 +6,9 @@ import { ProductService } from 'src/app/modules/shared/services/product.service'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-
   charBar: any;
   chardoughnut: any;
 
@@ -17,25 +16,36 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
+    this.getProductsByCategory();
   }
 
   getProducts() {
     this.productService.getProducts().subscribe({
       next: (data) => {
         this.processProductsResponse(data);
-        console.log('rpta products', data);
       },
       error: (error) => {
         console.log('Error', error);
-      }
+      },
+    });
+  }
+
+  getProductsByCategory() {
+    this.productService.getCountProductsByCategoria().subscribe({
+      next: (data) => {
+        this.processProductsByCategoryResponse(data);
+      },
+      error: (error) => {
+        console.log('Error', error);
+      },
     });
   }
 
   processProductsResponse(resp: any) {
-    const nameProduct: string [] = [];
-    const account: number [] = [];
+    const nameProduct: string[] = [];
+    const account: number[] = [];
 
-    if (resp.metadata[0].code == "00") {
+    if (resp.metadata[0].code == '00') {
       let listProduct = resp.productResponse.products;
 
       listProduct.forEach((element: ProductElement) => {
@@ -48,23 +58,30 @@ export class HomeComponent implements OnInit {
         type: 'bar',
         data: {
           labels: nameProduct,
-          datasets: [
-            {label: 'Productos', data: account}
-          ]
-        }
+          datasets: [{ label: 'Productos', data: account }],
+        },
+      });
+    }
+  }
+
+  processProductsByCategoryResponse(resp: any) {
+    const categoryName: string[] = [];
+    const productCount: number[] = [];
+
+    if (resp != null) {
+      resp.forEach((element: any) => {
+        categoryName.push(element.categoryName);
+        productCount.push(element.productCount);
       });
 
       //Gráfico de doughnut
       this.chardoughnut = new Chart('canvas-doughnut', {
         type: 'doughnut',
         data: {
-          labels: nameProduct,
-          datasets: [
-            {label: 'Productos', data: account}
-          ]
-        }
+          labels: categoryName,
+          datasets: [{ label: 'Cantidad', data: productCount }],
+        },
       });
     }
   }
-
 }
